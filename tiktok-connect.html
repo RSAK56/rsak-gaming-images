@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect TikTok | RSAK Gaming</title><meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.png">
+<style>
+:root{--bg:#070912;--panel:#10152a;--text:#e9eefb;--muted:#9aa6c4;--cyan:#2fe0ff;--violet:#9b5cff}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;padding:16px;box-sizing:border-box}
+.card{max-width:560px;width:100%;background:var(--panel);border:1px solid rgba(120,200,255,.18);border-radius:18px;padding:28px}
+h1{margin:0 0 6px;font-size:26px}p{color:var(--muted);line-height:1.6}
+input{width:100%;box-sizing:border-box;background:#05070f;color:var(--text);border:1px solid var(--cyan);border-radius:10px;padding:12px;font-size:16px;margin:8px 0 16px}
+button{background:linear-gradient(100deg,var(--cyan),var(--violet));color:#050711;border:0;border-radius:10px;padding:12px 18px;font-weight:700;font-size:16px;cursor:pointer;width:100%}
+</style></head>
+<body><div class="card">
+<h1>Connect TikTok</h1>
+<p>Paste the <b>Sandbox Client key</b> from TikTok for Developers (App details). It is not stored anywhere; it only builds the TikTok sign-in link.</p>
+<input id="k" placeholder="Client key (starts with sb or aw...)" autocomplete="off">
+<button id="go">Sign in with TikTok</button>
+</div>
+<script>
+document.getElementById('go').onclick=function(){
+  var key=document.getElementById('k').value.trim();
+  if(!key){alert('Paste the client key first');return;}
+  var redirect='https://rsak56.github.io/rsak-gaming-images/tiktok-callback.html';
+  var url='https://www.tiktok.com/v2/auth/authorize/?client_key='+encodeURIComponent(key)
+    +'&scope='+encodeURIComponent('user.info.basic,video.publish,video.upload')
+    +'&response_type=code&redirect_uri='+encodeURIComponent(redirect)+'&state=rsak';
+  location.href=url;
+};
+</script>
+</body></html>
