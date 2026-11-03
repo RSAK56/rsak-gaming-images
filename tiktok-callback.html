@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect TikTok | RSAK Gaming</title><meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.png">
+<style>
+:root{--bg:#070912;--panel:#10152a;--text:#e9eefb;--muted:#9aa6c4;--cyan:#2fe0ff;--violet:#9b5cff}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;padding:16px;box-sizing:border-box}
+.card{max-width:560px;width:100%;background:var(--panel);border:1px solid rgba(120,200,255,.18);border-radius:18px;padding:28px}
+h1{margin:0 0 6px;font-size:26px}p{color:var(--muted);line-height:1.6}
+.code{font-family:ui-monospace,monospace;background:#05070f;border:1px solid var(--cyan);border-radius:12px;padding:14px;word-break:break-all;font-size:15px;margin:14px 0}
+button{background:linear-gradient(100deg,var(--cyan),var(--violet));color:#050711;border:0;border-radius:10px;padding:12px 18px;font-weight:700;font-size:15px;cursor:pointer;width:100%}
+.err{color:#ff6b7a}
+</style></head>
+<body><div class="card">
+<h1>RSAK Gaming Uploader</h1>
+<div id="out"><p>Reading the TikTok response...</p></div>
+</div>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search), out=document.getElementById('out');
+  var code=q.get('code'), err=q.get('error_description')||q.get('error');
+  if(err){out.innerHTML='<p class="err">TikTok returned an error: '+err.replace(/</g,'&lt;')+'</p>';return;}
+  if(!code){out.innerHTML='<p>No sign-in code found. Start the TikTok connection again.</p>';return;}
+  var safe=code.replace(/[<>&"]/g,'');
+  out.innerHTML='<p>TikTok access approved. Copy this one-time code and paste it into the <b>Connect TikTok</b> workflow on GitHub within 10 minutes.</p><div class="code" id="c">'+safe+'</div><button id="b">Copy code</button>';
+  document.getElementById('b').onclick=function(){
+    try{navigator.clipboard.writeText(code).then(function(){document.getElementById('b').textContent='Copied';});}
+    catch(e){document.getElementById('b').textContent='Select the code above and copy it';}
+  };
+})();
+</script>
+</body></html>
