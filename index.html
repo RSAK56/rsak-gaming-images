@@ -2,272 +2,379 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RSAK Gaming | Gaming News, Reviews and Launch Coverage</title>
-<meta name="description" content="RSAK Gaming brings you daily gaming news, reviews, guides and launch coverage across YouTube, Instagram and Facebook.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RSAK Gaming</title>
+<meta name="description" content="RSAK Gaming: daily gaming news, comparisons, map breakdowns, debates and countdowns on YouTube, Instagram, TikTok and Facebook.">
 <meta property="og:title" content="RSAK Gaming">
-<meta property="og:description" content="Daily gaming news, reviews and launch coverage across every platform.">
+<meta property="og:description" content="Daily gaming news, comparisons, map breakdowns and debates. Follow everywhere.">
 <meta property="og:image" content="assets/banner.jpg">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="#070912">
+<meta name="theme-color" content="#05060c">
 <link rel="icon" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #05060c; --deck: #0d1020; --line: rgba(236, 239, 246, .12); --bone: #eceff6; --dim: #9aa3bd;
+    --fire: #ff7a1a; --ember: #ff5ca8; --cyan: #00f0ff; --violet: #7928ca;
+    --display: "Unbounded", system-ui, sans-serif; --body: "Onest", system-ui, sans-serif;
+    --gut: clamp(16px, 4vw, 56px); --max: 1320px;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { background: var(--void); color: var(--bone); font: 400 17px/1.6 var(--body); overflow-x: hidden; }
+  img, video { display: block; max-width: 100%; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 4px; }
+  .wrap { width: min(var(--max), 100% - 2 * var(--gut)); margin-inline: auto; }
+
+  /* film grain over everything, like printed gig posters */
+  body::after { content: ""; position: fixed; inset: -50%; pointer-events: none; z-index: 50; opacity: .07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 1.2s steps(6) infinite; }
+  @keyframes grain { 0%{transform:translate(0,0)} 33%{transform:translate(-3%,2%)} 66%{transform:translate(2%,-3%)} 100%{transform:translate(0,0)} }
+
+  /* nav */
+  .nav { position: sticky; top: 0; z-index: 40; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    background: color-mix(in srgb, var(--void) 72%, transparent); border-bottom: 1px solid var(--line); }
+  .nav .wrap { display: flex; align-items: center; gap: 20px; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 700 15px var(--display); letter-spacing: .02em; }
+  .brand img { width: 34px; height: 34px; border-radius: 50%; box-shadow: 0 0 0 2px var(--fire); }
+  .nav nav { display: flex; gap: 22px; margin-left: auto; font-size: 15px; }
+  .nav nav a { text-decoration: none; color: var(--dim); transition: color .2s; }
+  .nav nav a:hover { color: var(--bone); }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 999px; font: 700 15px var(--body);
+    text-decoration: none; border: 0; cursor: pointer; transition: transform .15s ease, box-shadow .2s; }
+  .btn-fire { background: linear-gradient(100deg, var(--fire), var(--ember)); color: #1a0710; box-shadow: 0 8px 30px -8px rgba(255, 122, 26, .7); }
+  .btn-fire:hover { transform: translateY(-2px); box-shadow: 0 14px 36px -8px rgba(255, 92, 168, .8); }
+  .btn-ghost { border: 1px solid var(--line); color: var(--bone); background: rgba(255, 255, 255, .03); }
+  .btn-ghost:hover { border-color: var(--cyan); }
+  .nav .btn { padding: 9px 16px; font-size: 14px; }
+  @media (max-width: 760px) { .nav nav { display: none; } .nav .btn { margin-left: auto; } }
+
+  /* hero: our own footage running inside the letters */
+  .hero { position: relative; padding: clamp(40px, 8vw, 96px) 0 clamp(30px, 5vw, 60px); }
+  .hero-glow { position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(60% 50% at 80% 10%, rgba(121, 40, 202, .35), transparent 70%),
+                radial-gradient(50% 45% at 10% 90%, rgba(255, 122, 26, .25), transparent 70%); }
+  @keyframes drift { to { transform: translateX(-50%); } }
+  .mark { position: relative; font: 900 clamp(64px, 18.5vw, 290px)/.86 var(--display); letter-spacing: -.045em; text-transform: uppercase; }
+  /* our own gameplay shots slowly panning inside the letters */
+  .mark span { display: block; width: fit-content; color: transparent; -webkit-background-clip: text; background-clip: text;
+    background-size: 240% auto; background-position: 0% 50%; background-color: var(--fire);
+    filter: saturate(1.35) contrast(1.08) drop-shadow(0 18px 40px rgba(255, 92, 168, .25));
+    animation: slam .9s cubic-bezier(.2, .9, .2, 1) both, pan 22s 1s ease-in-out infinite alternate; }
+  @keyframes pan { to { background-position: 100% 50%; } }
+  .mark span:last-child { padding-left: .55em; }
+  .hero-row { position: relative; display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; align-items: end; margin-top: clamp(22px, 4vw, 44px); }
+  .lede { font-size: clamp(19px, 2.1vw, 24px); line-height: 1.45; max-width: 34ch; }
+  .lede b { font-weight: 700; color: #fff; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .clock { justify-self: end; text-align: right; border-left: 2px solid var(--fire); padding-left: 22px; }
+  .clock small { display: block; color: var(--dim); font-size: 14px; }
+  .clock strong { display: block; font: 900 clamp(54px, 7vw, 96px)/1 var(--display); letter-spacing: -.03em;
+    background: linear-gradient(90deg, var(--fire), var(--ember)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .clock span { font: 500 15px var(--body); color: var(--bone); }
+  @media (max-width: 820px) { .hero-row { grid-template-columns: 1fr; } .clock { justify-self: start; text-align: left; } }
+
+  /* ticker */
+  .ticker { border-block: 1px solid var(--line); overflow: hidden; padding: 14px 0; background: linear-gradient(90deg, rgba(255,122,26,.08), rgba(0,240,255,.06)); }
+  .ticker div { display: flex; gap: 42px; width: max-content; animation: drift 38s linear infinite; font: 700 clamp(18px, 2.4vw, 26px) var(--display); letter-spacing: -.01em; white-space: nowrap; }
+  .ticker i { font-style: normal; color: var(--fire); }
+
+  section { padding: clamp(64px, 10vw, 130px) 0; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 34px; flex-wrap: wrap; }
+  h2 { font: 700 clamp(32px, 5vw, 62px)/1.02 var(--display); letter-spacing: -.035em; max-width: 16ch; }
+  .sub { color: var(--dim); max-width: 46ch; }
+
+  /* highlights rail: vertical posts, plays on hover or when centred on phones */
+  .rail { display: grid; grid-auto-flow: column; grid-auto-columns: clamp(220px, 24vw, 300px); gap: 16px; overflow-x: auto;
+    scroll-snap-type: x mandatory; padding: 4px var(--gut) 18px; margin-inline: calc(-1 * var(--gut)); scrollbar-width: thin;
+    scrollbar-color: var(--fire) transparent; }
+  .post { position: relative; scroll-snap-align: start; aspect-ratio: 9 / 16; border-radius: 22px; overflow: hidden;
+    background: var(--deck); border: 1px solid var(--line); text-decoration: none; }
+  .post img, .post video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .post video { opacity: 0; transition: opacity .35s; }
+  .post.playing video { opacity: 1; }
+  .post .shade { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(5, 6, 12, .92)); }
+  .post .meta { position: absolute; left: 14px; right: 14px; bottom: 14px; }
+  .post .kind { display: inline-flex; gap: 6px; align-items: center; font: 700 12px var(--body); padding: 5px 10px; border-radius: 999px;
+    background: rgba(255, 255, 255, .12); backdrop-filter: blur(6px); }
+  .post .kind.voice { background: linear-gradient(90deg, var(--fire), var(--ember)); color: #1a0710; }
+  .post h3 { font: 700 15px/1.3 var(--body); margin-top: 8px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .rail-nav { display: flex; gap: 8px; }
+  .rail-nav button { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--bone);
+    font-size: 20px; cursor: pointer; }
+  .rail-nav button:hover { border-color: var(--fire); color: var(--fire); }
+
+  /* scoreboard */
+  .score { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: 26px; overflow: hidden;
+    background: linear-gradient(180deg, rgba(13, 16, 32, .9), rgba(5, 6, 12, .9)); }
+  .score > div { padding: clamp(20px, 3vw, 34px); border-right: 1px solid var(--line); }
+  .score > div:last-child { border-right: 0; }
+  .score strong { display: block; font: 900 clamp(34px, 4.6vw, 64px)/1 var(--display); letter-spacing: -.04em; }
+  .score > div:nth-child(1) strong { color: var(--fire); } .score > div:nth-child(2) strong { color: var(--ember); }
+  .score > div:nth-child(3) strong { color: var(--cyan); } .score > div:nth-child(4) strong { color: #b98cff; }
+  .score span { display: block; color: var(--dim); font-size: 15px; margin-top: 10px; }
+  @media (max-width: 760px) { .score { grid-template-columns: 1fr 1fr; } .score > div:nth-child(2) { border-right: 0; }
+    .score > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); } }
+
+  /* formats bento */
+  .bento { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 210px; gap: 14px; }
+  .tile { position: relative; border-radius: 22px; overflow: hidden; padding: 22px; display: flex; flex-direction: column; justify-content: flex-end;
+    background: var(--deck); border: 1px solid var(--line); }
+  .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .55; transition: transform .6s ease, opacity .3s; }
+  .tile:hover img { transform: scale(1.05); opacity: .75; }
+  .tile::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 20%, rgba(5, 6, 12, .95)); z-index: 1; }
+  .tile > * { position: relative; z-index: 2; }
+  .tile h3 { font: 700 clamp(20px, 2.2vw, 28px)/1.1 var(--display); letter-spacing: -.02em; }
+  .tile p { color: #c9cfe0; font-size: 15px; margin-top: 6px; max-width: 40ch; }
+  .t1 { grid-column: span 4; grid-row: span 2; } .t2 { grid-column: span 2; grid-row: span 2; }
+  .t3, .t4, .t5 { grid-column: span 2; }
+  .t1 h3 { font-size: clamp(28px, 3.6vw, 48px); }
+  @media (max-width: 900px) { .bento { grid-template-columns: 1fr 1fr; grid-auto-rows: 190px; }
+    .t1 { grid-column: span 2; } .t2 { grid-column: span 2; grid-row: span 1; } .t3, .t4 { grid-column: span 1; } .t5 { grid-column: span 2; } }
+  @media (max-width: 520px) { .t3, .t4 { grid-column: span 2; } }
+
+  /* platforms */
+  .plats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .plat { position: relative; display: flex; flex-direction: column; gap: 46px; padding: 24px; border-radius: 22px; text-decoration: none;
+    border: 1px solid var(--line); background: var(--deck); overflow: hidden; transition: border-color .25s, transform .2s; }
+  .plat::after { content: ""; position: absolute; inset: auto -30% -60% auto; width: 220px; height: 220px; border-radius: 50%;
+    background: var(--c); filter: blur(60px); opacity: .25; transition: opacity .3s; }
+  .plat:hover { border-color: var(--c); transform: translateY(-3px); }
+  .plat:hover::after { opacity: .55; }
+  .plat svg { width: 34px; height: 34px; color: var(--c); }
+  .plat b { display: block; font: 700 22px var(--display); letter-spacing: -.02em; }
+  .plat span { color: var(--dim); font-size: 15px; }
+  @media (max-width: 900px) { .plats { grid-template-columns: 1fr 1fr; } }
+
+  /* partners */
+  .partner { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(24px, 5vw, 70px); align-items: center;
+    padding: clamp(28px, 5vw, 64px); border-radius: 32px; border: 1px solid rgba(255, 122, 26, .35);
+    background: radial-gradient(70% 90% at 100% 0%, rgba(255, 92, 168, .18), transparent 60%),
+                radial-gradient(60% 80% at 0% 100%, rgba(0, 240, 255, .12), transparent 60%), var(--deck); }
+  .partner ul { list-style: none; padding: 0; display: grid; gap: 14px; }
+  .partner li { display: flex; gap: 14px; align-items: flex-start; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .partner li:last-child { border-bottom: 0; }
+  .partner li svg { flex: none; width: 22px; height: 22px; color: var(--fire); margin-top: 3px; }
+  @media (max-width: 860px) { .partner { grid-template-columns: 1fr; } }
+
+  footer { border-top: 1px solid var(--line); padding: 34px 0 48px; color: var(--dim); font-size: 15px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 18px 28px; justify-content: space-between; }
+  footer nav { display: flex; flex-wrap: wrap; gap: 18px; }
+  footer a { text-decoration: none; } footer a:hover { color: var(--bone); }
+
+  /* one orchestrated entrance: the wordmark slams in, then the row below follows */
+  @keyframes slam { from { transform: translateY(18%) scale(1.06); opacity: 0; } to { transform: none; opacity: 1; } }
+  .mark span:last-child { animation-delay: .12s, 1.1s; }
+  .hero-row { animation: slam .9s .3s cubic-bezier(.2, .9, .2, 1) both; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
 </head>
 <body>
-
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="#top"><img src="assets/logo.jpg" alt="RSAK Gaming logo"><span>RSAK <b>GAMING</b></span></a>
-    <button class="menu-btn" aria-label="Open menu" aria-expanded="false">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-    </button>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#coverage">Coverage</a></li>
-      <li><a href="#engine">How It Works</a></li>
-      <li><a href="#roadmap">Roadmap</a></li>
-      <li><a href="#platforms">Platforms</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li class="nav-social">
-        <a href="https://www.youtube.com/@RSAKGAMING" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15.1V8.9l5.8 3.1-5.8 3.1z"/></svg></a>
-        <a href="https://www.instagram.com/rsakgaming/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
-        <a href="https://www.facebook.com/profile.php?id=61595927129527" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.5-1 1-1h2.4V2.1L14.1 2C10.8 2 10 4.5 10 6.1v2.4H7.6v3.8H10V22h4v-9.7h3.1l.4-3.8H14z"/></svg></a>
-        <a href="https://www.tiktok.com/@rsak_gaming" aria-label="TikTok" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 2h-3.4v13.4a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.1a6.4 6.4 0 1 0 5.4 6.3V8.6a8.1 8.1 0 0 0 4.8 1.6V6.8a4.8 4.8 0 0 1-4.8-4.8z"/></svg></a>
-      </li>
-    </ul>
+    <a class="brand" href="/"><img src="assets/logo.jpg" alt="">RSAK Gaming</a>
+    <nav aria-label="Sections">
+      <a href="#highlights">Highlights</a><a href="#formats">What we post</a><a href="#follow">Follow</a><a href="#partners">Work with us</a>
+    </nav>
+    <a class="btn btn-fire" href="/links">Follow us</a>
   </div>
 </header>
 
-<main id="top">
-
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-bg" role="img" aria-label="RSAK Gaming banner"></div>
-    <div class="content wrap">
-      <img class="hero-logo" src="assets/logo.jpg" alt="RSAK Gaming">
-      <span class="eyebrow">Gaming news, every day</span>
-      <h1><span class="grad">RSAK GAMING</span></h1>
-      <p class="lead">Breaking news, honest reviews, deep-dive guides and full launch coverage of the biggest games, delivered daily across YouTube, Instagram and Facebook.</p>
-      <div class="cta">
-        <a class="btn btn-primary" href="https://www.youtube.com/@RSAKGAMING" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch on YouTube</a>
-        <a class="btn btn-ghost" href="#engine">See how it works</a>
-      </div>
-    </div>
-    <span class="scroll-cue" aria-hidden="true"></span>
-  </section>
-
-  <!-- About -->
-  <section id="about">
-    <div class="waves"></div>
+<main>
+  <section class="hero" style="padding-top:clamp(28px,5vw,64px)">
+    <div class="hero-glow"></div>
     <div class="wrap">
-      <div class="reveal">
-        <span class="label">Introduction</span>
-        <h2>Overview<span class="dot">.</span></h2>
-        <p class="intro">RSAK Gaming is an independent gaming media brand built for players who want the news that matters, fast and without the noise. We cover the biggest releases from the first teaser to launch day and beyond: open-world blockbusters, story-driven RPGs, competitive shooters, indie surprises, and the hardware that runs them. Every post is reviewed by a person before it goes live, so our audience gets accurate, readable updates they can trust.</p>
-        <div class="stats">
-          <div class="stat"><b data-count="3" data-suffix="+">3+</b><span>Fresh stories every day</span></div>
-          <div class="stat"><b data-count="4">4</b><span>Formats per story</span></div>
-          <div class="stat"><b data-count="100" data-suffix="%">100%</b><span>Human-approved posts</span></div>
-          <div class="stat"><b data-count="0">0</b><span>Clickbait headlines</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Coverage -->
-  <section id="coverage">
-    <div class="wrap">
-      <div class="reveal">
-        <span class="label">What we cover</span>
-        <h2>Coverage<span class="dot">.</span></h2>
-        <p class="intro">From day-one announcements to post-launch updates, these are the stories our audience follows us for.</p>
-      </div>
-      <div class="grid grid-4" style="margin-top:36px">
-        <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h13v14H6a2 2 0 0 1-2-2V5z"/><path d="M17 8h3v9a2 2 0 0 1-2 2"/><path d="M7 9h7M7 12h7M7 15h4"/></svg></div><h3>Breaking News</h3><p>Announcements, trailers, delays and release dates, written clearly and fast.</p></div>
-        <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg></div><h3>Reviews</h3><p>Honest verdicts and review roundups so players know what is worth their time.</p></div>
-        <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg></div><h3>Guides &amp; Walkthroughs</h3><p>Builds, tips, secrets and step-by-step help for the games people are playing now.</p></div>
-        <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 15c-1.5 1.3-2 5-2 5s3.7-.5 5-2"/><path d="M14 4c3-1 6-1 6-1s0 3-1 6l-6 6-5-5z"/><circle cx="15" cy="9" r="1.5"/></svg></div><h3>Launch Coverage</h3><p>Countdown hype, day-one impressions and everything players need for release week.</p></div>
-        <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg></div><h3>Open Worlds</h3><p>Sprawling sandbox and crime-city adventures, their maps, systems and secrets.</p></div>
-        <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.5 3.5l6 6-9 9-3-3z"/><path d="M8.5 15.5l-5 5M5 13l6 6"/></svg></div><h3>RPG &amp; Fantasy</h3><p>Dark fantasy epics, action RPGs and story-rich worlds worth getting lost in.</p></div>
-        <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 1v5M12 18v5M1 12h5M18 12h5"/></svg></div><h3>Shooters &amp; Esports</h3><p>Competitive shooters, seasons, patches and the esports scene around them.</p></div>
-        <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><h3>Hardware &amp; Industry</h3><p>Consoles, PC hardware, studio news and the business shaping gaming.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Engine -->
-  <section id="engine">
-    <div class="waves"></div>
-    <div class="wrap">
-      <div class="reveal">
-        <span class="label">Behind the scenes</span>
-        <h2>The RSAK Publishing Engine<span class="dot">.</span></h2>
-        <p class="intro">Our own automation turns the day's gaming headlines into polished posts for every platform, while a person stays in control of what goes out.</p>
-      </div>
-      <div class="engine">
-        <ol class="steps reveal">
-          <li><span class="num">1</span><div><h4>Collect</h4><p>News feeds and alerts are gathered every morning into one queue, with duplicates removed.</p></div></li>
-          <li><span class="num">2</span><div><h4>Curate</h4><p>Only gaming stories pass. Off-topic items, repeated stories and weak images are filtered out automatically.</p></div></li>
-          <li><span class="num">3</span><div><h4>Create</h4><p>AI writes a short original caption. The engine builds a branded card from the story's lead image, plus vertical and square videos with royalty-free music.</p><div class="tags"><span class="tag">Captions</span><span class="tag">Branded cards</span><span class="tag">Music videos</span></div></div></li>
-          <li><span class="num">4</span><div><h4>Approve</h4><p>Each draft lands in a review queue. Nothing is published until the channel owner approves it.</p></div></li>
-          <li><span class="num">5</span><div><h4>Publish</h4><p>One approval publishes everywhere at once.</p><div class="tags"><span class="tag">YouTube Shorts</span><span class="tag">Instagram Reels</span><span class="tag">Instagram Stories</span><span class="tag">Facebook Videos</span></div></div></li>
-        </ol>
-        <div class="mock-wrap reveal">
-          <div class="mock-glow"></div>
-          <div class="mock" aria-label="Example RSAK Gaming post">
-            <div class="mock-photo"></div>
-            <div class="mock-body">
-              <span class="mock-pill">GAMING NEWS</span>
-              <div class="mock-title">Biggest launch of the year: everything you need to know</div>
-              <div class="mock-brand">RSAK GAMING</div>
-            </div>
-            <div class="mock-bar"></div>
-          </div>
-          <div class="mock-chips"><span class="tag">1080 x 1080 feed</span><span class="tag">1080 x 1920 Shorts, Reels &amp; Stories</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Roadmap -->
-  <section id="roadmap">
-    <div class="wrap">
-      <div class="reveal">
-        <span class="label">Goals and ambitions</span>
-        <h2>Roadmap<span class="dot">.</span></h2>
-        <p class="intro">Where RSAK Gaming is today, and where we are heading next.</p>
-      </div>
-      <div class="timeline">
-        <div class="t-item done reveal">
-          <span class="t-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></span>
-          <div class="t-card"><span class="t-phase">Phase 1</span><h3>Launch the brand <span class="status live">Done</span></h3>
-            <ul><li>Brand identity, logo and channel artwork</li><li>YouTube, Instagram and Facebook channels live</li><li>Automated daily news pipeline with human approval</li></ul></div>
-        </div>
-        <div class="t-item reveal">
-          <span class="t-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span>
-          <div class="t-card"><span class="t-phase">Phase 2</span><h3>Grow the audience <span class="status next">In progress</span></h3>
-            <ul><li>Consistent daily Shorts, Reels and Stories</li><li>Build an engaged community in comments and stories</li><li>Polls, quizzes and community posts</li></ul></div>
-        </div>
-        <div class="t-item reveal">
-          <span class="t-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></span>
-          <div class="t-card"><span class="t-phase">Phase 3</span><h3>Long-form content</h3>
-            <ul><li>Full reviews and first impressions</li><li>Walkthrough series and guide playlists</li><li>Weekly news recap videos</li></ul></div>
-        </div>
-        <div class="t-item reveal">
-          <span class="t-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 15c-1.5 1.3-2 5-2 5s3.7-.5 5-2"/><path d="M14 4c3-1 6-1 6-1s0 3-1 6l-6 6-5-5z"/></svg></span>
-          <div class="t-card"><span class="t-phase">Phase 4</span><h3>Big launch season</h3>
-            <ul><li>Countdown coverage for the year's biggest releases</li><li>Launch-week live streams and day-one guides</li><li>Post-launch updates, patches and tips</li></ul></div>
-        </div>
-        <div class="t-item reveal">
-          <span class="t-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg></span>
-          <div class="t-card"><span class="t-phase">Phase 5</span><h3>Community and partnerships</h3>
-            <ul><li>Channel monetization and memberships</li><li>Collaborations with creators and studios</li><li>A multi-title gaming network under one brand</li></ul></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Principles -->
-  <section id="principles">
-    <div class="waves"></div>
-    <div class="wrap">
-      <div class="reveal">
-        <span class="label">How we work</span>
-        <h2>Our Principles<span class="dot">.</span></h2>
-      </div>
-      <div class="grid grid-4" style="margin-top:30px">
-        <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div><h3>Accuracy first</h3><p>Facts come from the original reporting, and we credit the outlets we draw on.</p></div>
-        <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="7" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6"/><path d="M16 11l2 2 4-4"/></svg></div><h3>Human approved</h3><p>Automation does the heavy lifting, but a person approves every single post.</p></div>
-        <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><h3>Licensed music</h3><p>Videos use royalty-free tracks cleared for commercial use, logged with their licences.</p></div>
-        <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>No clickbait</h3><p>Headlines say what the story is. Clear, readable updates our audience can trust.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Platforms -->
-  <section id="platforms">
-    <div class="wrap">
-      <div class="reveal">
-        <span class="label">Where to find us</span>
-        <h2>Platforms<span class="dot">.</span></h2>
-      </div>
-      <div class="grid" style="margin-top:30px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
-        <div class="card platform reveal">
-          <div class="p-head"><div class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15.1V8.9l5.8 3.1-5.8 3.1z"/></svg></div><h3>YouTube</h3></div>
-          <ul><li>Daily news Shorts</li><li>Reviews, guides and walkthroughs</li><li>Launch coverage and live streams</li></ul>
-          <a class="btn btn-ghost" href="https://www.youtube.com/@RSAKGAMING" target="_blank" rel="noopener">@RSAKGAMING</a>
-        </div>
-        <div class="card platform reveal">
-          <div class="p-head"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></div><h3>Instagram</h3></div>
-          <ul><li>News Reels with music</li><li>Daily Stories</li><li>Polls and community updates</li></ul>
-          <a class="btn btn-ghost" href="https://www.instagram.com/rsakgaming/" target="_blank" rel="noopener">@rsakgaming</a>
-        </div>
-        <div class="card platform reveal">
-          <div class="p-head"><div class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.5-1 1-1h2.4V2.1L14.1 2C10.8 2 10 4.5 10 6.1v2.4H7.6v3.8H10V22h4v-9.7h3.1l.4-3.8H14z"/></svg></div><h3>Facebook</h3></div>
-          <ul><li>News videos and photo posts</li><li>Links to the full stories</li><li>Community discussion</li></ul>
-          <a class="btn btn-ghost" href="https://www.facebook.com/profile.php?id=61595927129527" target="_blank" rel="noopener">RSAK Gaming</a>
-        </div>
-        <div class="card platform reveal">
-          <div class="p-head"><div class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 2h-3.4v13.4a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.1a6.4 6.4 0 1 0 5.4 6.3V8.6a8.1 8.1 0 0 0 4.8 1.6V6.8a4.8 4.8 0 0 1-4.8-4.8z"/></svg></div><h3>TikTok</h3></div>
-          <ul><li>GTA 6 Shorts with music</li><li>Comparisons and countdowns</li><li>Fan memes and polls</li></ul>
-          <a class="btn btn-ghost" href="https://www.tiktok.com/@rsak_gaming" target="_blank" rel="noopener">@rsak_gaming</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- YouTube API Services -->
-  <section id="uploader" style="padding-top:20px">
-    <div class="wrap">
-      <div class="api reveal">
-        <span class="yt-badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15.1V8.9l5.8 3.1-5.8 3.1z"/></svg>YouTube</span>
+      <h1 class="mark" aria-label="RSAK Gaming"><span id="w1">RSAK</span><span id="w2">Gaming</span></h1>
+      <div class="hero-row">
         <div>
-          <p><strong>RSAK Gaming Uploader</strong> uses YouTube API Services to upload RSAK Gaming's own approved videos to the RSAK Gaming YouTube channel. It is an internal tool used only by the channel owner. By using it, you agree to the YouTube Terms of Service.</p>
-          <div class="links">
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms of Service</a>
-            <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">YouTube Terms of Service</a>
-            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>
+          <p class="lede"><b>Gaming news that's fun to watch.</b> Daily countdowns, side-by-side comparisons, map breakdowns and honest debates, posted to every platform you scroll.</p>
+          <div class="cta-row">
+            <a class="btn btn-fire" href="#highlights">Watch the latest posts</a>
+            <a class="btn btn-ghost" href="/links">All our channels</a>
           </div>
+        </div>
+        <div class="clock" id="clock">
+          <small>Grand Theft Auto VI</small>
+          <strong id="days">--</strong>
+          <span id="daysLabel">days to launch, 19 November</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact" class="contact">
-    <div class="waves"></div>
-    <div class="wrap reveal">
-      <span class="label">Get in touch</span>
-      <h2>Contact<span class="dot">.</span></h2>
-      <p class="intro">Story tips, collaborations, studio and press enquiries are all welcome.</p>
-      <a class="mail" href="mailto:rsakgaming56@gmail.com">rsakgaming56@gmail.com</a>
-      <div class="cta" style="margin-top:34px">
-        <a class="btn btn-primary" href="https://www.youtube.com/@RSAKGAMING" target="_blank" rel="noopener">Subscribe on YouTube</a>
-        <a class="btn btn-ghost" href="https://www.instagram.com/rsakgaming/" target="_blank" rel="noopener">Follow on Instagram</a>
+  <div class="ticker" aria-hidden="true"><div id="ticker"></div></div>
+
+  <section id="highlights">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <h2>Fresh off the feed</h2>
+          <p class="sub" id="hlSub">Our newest posts. Hover or tap to play.</p>
+        </div>
+        <div class="rail-nav"><button type="button" id="prev" aria-label="Scroll back">‹</button><button type="button" id="next" aria-label="Scroll forward">›</button></div>
+      </div>
+      <div class="rail" id="rail" tabindex="0" aria-label="Latest posts"></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="score" aria-label="Channel stats">
+        <div><strong data-count="18900">0</strong><span>YouTube views in the last 28 days</span></div>
+        <div><strong data-count="5500">0</strong><span>Instagram views in a month</span></div>
+        <div><strong data-count="60" data-plus>0</strong><span>Posts published so far</span></div>
+        <div><strong data-count="4">0</strong><span>Platforms, one daily drop</span></div>
       </div>
     </div>
   </section>
 
+  <section id="formats">
+    <div class="wrap">
+      <div class="head">
+        <h2>What we post</h2>
+        <p class="sub">Every post is checked against official sources before it goes live. No fake leaks, no clickbait.</p>
+      </div>
+      <div class="bento">
+        <div class="tile t1"><img src="https://raw.githubusercontent.com/RSAK56/rsak-gaming-images/main/library/665d47e175a6e1be.jpg" alt="" loading="lazy"><h3>Countdown reels</h3><p>A new reel every day until launch day, with the numbers that matter: days left, pre-load, file size.</p></div>
+        <div class="tile t2"><img src="https://raw.githubusercontent.com/RSAK56/rsak-gaming-images/main/library/44531e90d914e8ed.jpg" alt="" loading="lazy"><h3>Map breakdowns</h3><p>Neon maps of every region, and where you'll actually spend your time.</p></div>
+        <div class="tile t3"><img src="https://raw.githubusercontent.com/RSAK56/rsak-gaming-images/main/library/a96ccb1dc0ebf872.jpg" alt="" loading="lazy"><h3>Then vs now</h3><p>Story lengths, settings, release gaps, side by side.</p></div>
+        <div class="tile t4"><img src="https://raw.githubusercontent.com/RSAK56/rsak-gaming-images/main/library/79a284a1499890ad.jpg" alt="" loading="lazy"><h3>Debates</h3><p>The questions fans argue about, in our own voice.</p></div>
+        <div class="tile t5"><img src="https://raw.githubusercontent.com/RSAK56/rsak-gaming-images/main/library/8818416b294358c4.jpg" alt="" loading="lazy"><h3>Fan cards</h3><p>The memes every gamer relates to, ready to send to your group chat.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="follow" style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><h2>Pick your feed</h2><p class="sub">Same daily drop, wherever you watch.</p></div>
+      <div class="plats">
+        <a class="plat" style="--c:#ff2d4d" href="https://www.youtube.com/@RSAKGAMING" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15.1V8.9l5.8 3.1-5.8 3.1z"/></svg>
+          <div><b>YouTube</b><span>@RSAKGAMING</span></div></a>
+        <a class="plat" style="--c:#ff5ca8" href="https://www.instagram.com/rsakgaming/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          <div><b>Instagram</b><span>@rsakgaming</span></div></a>
+        <a class="plat" style="--c:#00f0ff" href="https://www.tiktok.com/@rsak_gaming" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3.4v13.4a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.1a6.4 6.4 0 1 0 5.4 6.3V8.6a8.1 8.1 0 0 0 4.8 1.6V6.8a4.8 4.8 0 0 1-4.8-4.8z"/></svg>
+          <div><b>TikTok</b><span>@rsak_gaming</span></div></a>
+        <a class="plat" style="--c:#4c8dff" href="https://www.facebook.com/profile.php?id=61595927129527" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1 1-1h2.4V2.1L14.1 2C10.8 2 10 4.5 10 6.1v2.4H7.6v3.8H10V22h4v-9.7h3.1l.4-3.8H14z"/></svg>
+          <div><b>Facebook</b><span>RSAK Gaming</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="partners" style="padding-top:0">
+    <div class="wrap">
+      <div class="partner">
+        <div>
+          <h2>Got a game, gear or app gamers should know about?</h2>
+          <p class="sub" style="margin:18px 0 26px">We make it part of the feed, in the same style our audience already watches, on four platforms at once.</p>
+          <a class="btn btn-fire" href="mailto:rsakgaming56@gmail.com?subject=Partnership%20with%20RSAK%20Gaming">Email us about a partnership</a>
+        </div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><div><b>Sponsored reels</b><br><span class="sub">A dedicated reel or carousel about your product, posted everywhere.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><div><b>Launch coverage</b><br><span class="sub">Countdowns and day-one posts for your release.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><div><b>Giveaways</b><br><span class="sub">Keys, codes or gear for our community, run by us.</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
 </main>
 
-<footer class="site">
+<footer>
   <div class="wrap">
-    <span>&copy; <span id="year">2026</span> RSAK Gaming. All rights reserved.</span>
-    <nav>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
-      <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">YouTube Terms</a>
-      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>
-    </nav>
+    <span>© <span id="yr">2026</span> RSAK Gaming. Game images belong to their publishers.</span>
+    <nav aria-label="Footer"><a href="/links">All links</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="mailto:rsakgaming56@gmail.com">Contact</a></nav>
   </div>
 </footer>
 
-<script src="assets/site.js"></script>
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const LIB = "https://raw.githubusercontent.com/RSAK56/rsak-gaming-images/main/library/";
+  const shots = ["10453190f3452fdf", "665d47e175a6e1be", "8818416b294358c4", "a96ccb1dc0ebf872"];
+  // two of four hand-picked colourful shots, different on each visit
+  const pick = shots.sort(() => Math.random() - .5);
+  document.getElementById("w1").style.backgroundImage = `url(${LIB}${pick[0]}.jpg)`;
+  document.getElementById("w2").style.backgroundImage = `url(${LIB}${pick[1]}.jpg)`;
+
+  // countdown in the visitor's own time zone
+  const launch = new Date(2026, 10, 19);
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const days = Math.round((launch - today) / 864e5);
+  const d = document.getElementById("days"), l = document.getElementById("daysLabel");
+  if (days > 1) { d.textContent = days; }
+  else if (days === 1) { d.textContent = "1"; l.textContent = "day to launch. Tomorrow."; }
+  else if (days === 0) { d.textContent = "Today"; l.textContent = "GTA VI launches today"; }
+  else { d.textContent = "Out now"; l.textContent = "We're covering it every day"; }
+  document.getElementById("yr").textContent = today.getFullYear();
+
+  const topics = ["Daily countdowns", "Map breakdowns", "Then vs now", "Honest debates", "Launch-day coverage", "Fan cards", "Leaks, fact-checked"];
+  const t = document.getElementById("ticker");
+  t.innerHTML = [...topics, ...topics].map(x => `<span>${x}</span><i>✦</i>`).join("");
+
+  // highlights rail from the bot's latest posts
+  const rail = document.getElementById("rail");
+  const esc = s => String(s || "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+  fetch("highlights.json", {cache: "no-store"}).then(r => r.json()).then(({posts}) => {
+    rail.innerHTML = posts.map(p => `
+      <article class="post" tabindex="0">
+        <img src="${esc(p.image)}" alt="" loading="lazy">
+        ${p.video ? `<video muted playsinline loop preload="none" data-src="${esc(p.video)}"></video>` : ""}
+        <div class="shade"></div>
+        <div class="meta">
+          <span class="kind ${p.voice ? "voice" : ""}">${p.voice ? "🎙 Voiceover" : esc(p.format)}</span>
+          <h3>${esc(p.title)}</h3>
+        </div>
+      </article>`).join("");
+    wireVideos();
+  }).catch(() => { document.getElementById("hlSub").textContent = "New posts land here every day. Follow us to catch them first."; });
+
+  function play(card, on) {
+    const v = card.querySelector("video"); if (!v || reduce) return;
+    if (on) { if (!v.src) v.src = v.dataset.src; v.play().then(() => card.classList.add("playing")).catch(() => {}); }
+    else { v.pause(); card.classList.remove("playing"); }
+  }
+  function wireVideos() {
+    const cards = [...rail.querySelectorAll(".post")];
+    const hover = matchMedia("(hover: hover)").matches;
+    cards.forEach(c => {
+      if (hover) { c.addEventListener("mouseenter", () => play(c, true)); c.addEventListener("mouseleave", () => play(c, false)); }
+      c.addEventListener("focus", () => play(c, true)); c.addEventListener("blur", () => play(c, false));
+    });
+    if (!hover && "IntersectionObserver" in window) {  // phones: play the post that's fully in view
+      const io = new IntersectionObserver(es => es.forEach(e => play(e.target, e.intersectionRatio > .8)), {threshold: [0, .8]});
+      cards.forEach(c => io.observe(c));
+    }
+  }
+  const step = () => rail.clientWidth * .8;
+  document.getElementById("next").onclick = () => rail.scrollBy({left: step(), behavior: reduce ? "auto" : "smooth"});
+  document.getElementById("prev").onclick = () => rail.scrollBy({left: -step(), behavior: reduce ? "auto" : "smooth"});
+
+  // count the scoreboard up once, when it scrolls into view
+  const fmt = n => n >= 1000 ? (n / 1000).toFixed(n % 1000 ? 1 : 0) + "K" : String(n);
+  const nums = document.querySelectorAll("[data-count]");
+  const run = el => {
+    const end = +el.dataset.count, plus = el.hasAttribute("data-plus") ? "+" : "";
+    if (reduce) { el.textContent = fmt(end) + plus; return; }
+    const t0 = performance.now();
+    const tick = now => { const k = Math.min(1, (now - t0) / 1200); el.textContent = fmt(Math.round(end * (1 - Math.pow(1 - k, 3)))) + plus;
+      if (k < 1) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  };
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { run(e.target); io.unobserve(e.target); } }), {threshold: .6});
+    nums.forEach(n => io.observe(n));
+  } else nums.forEach(run);
+})();
+</script>
 </body>
 </html>
